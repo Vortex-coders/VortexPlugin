@@ -1,0 +1,11 @@
+{
+  "name": "vortex-plugin",
+  "minGameVersion": "143",
+  "displayName": "Vortex Plugin",
+  "author": "rachie",
+  "description": "Vortex server plug-in",
+  "version": "1.0.0",
+  "main": "ru.rachie.vortex.Main",
+  "repo": "Kowkodivka/VortexPlugin",
+  "dependencies": []
+}
