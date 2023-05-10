@@ -16,7 +16,7 @@ public class Main extends Plugin {
         Log.info("Initialising the plug-in...");
         Time.mark();
 
-        Config.load(new File("../vortex.yaml"));
+        Config.load(new File("vortex.yaml"));
         Config.setGameRules();
 
         GameEvents.load();

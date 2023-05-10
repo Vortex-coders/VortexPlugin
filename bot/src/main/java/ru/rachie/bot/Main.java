@@ -14,7 +14,7 @@ import static ru.rachie.api.events.Events.LoginRequestEvent;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Config.load(new File("../bot.yaml"));
+        Config.load(new File("bot.yaml"));
         GatewayDiscordClient gateway = DiscordClient.create(Vars.config.token()).login().block();
 
         Vars.socket = new ServerSocket(6466);
