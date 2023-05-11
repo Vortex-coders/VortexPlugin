@@ -1,51 +1,23 @@
 package ru.rachie.vortex;
 
-import arc.Core;
 import arc.files.Fi;
+import arc.struct.ObjectMap;
 import arc.util.Log;
-import arc.util.serialization.Json;
-import arc.util.serialization.JsonReader;
-import arc.util.serialization.JsonWriter;
 import mindustry.net.Administration;
+import ru.rachie.api.config.GenericConfig;
 
-public class Config {
+public class Config extends GenericConfig {
     public String name;
     public String description;
     public int port;
     public String remote;
     public int remotePort;
 
-    public Config() {
-
+    public Config(Fi configFile, ObjectMap<String, Object> defaultValues) {
+        super(configFile, defaultValues);
     }
 
-    public Config(String n, String d, int p, String r, int rp) {
-        name = n;
-        description = d;
-        port = p;
-        remote = r;
-        remotePort = rp;
-    }
-
-    public static void load(Fi configFile) {
-        try {
-            Json json = new Json();
-            if (!configFile.exists()) {
-                json.setWriter(new JsonWriter(configFile.writer(false)));
-                json.writeValue(new Config("Survival", "A survival server", 6567, "localhost", 6466));
-                json.getWriter().close();
-                Log.info("The configuration file has been regenerated, make sure you fill it in before restarting the server.");
-                System.exit(0);
-            } else {
-                Vars.config = json.fromJson(Config.class, configFile);
-            }
-        } catch (Exception exception) {
-            Log.err("Configuration load error.", exception);
-            System.exit(0);
-        }
-    }
-
-    public static void setGameRules() {
+    public static void setRules() {
         Administration.Config.autoPause.set(true);
 
         Administration.Config.serverName.set(Vars.config.name);

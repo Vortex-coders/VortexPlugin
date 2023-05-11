@@ -4,6 +4,10 @@ import arc.util.CommandHandler.CommandRunner;
 import mindustry.gen.Player;
 import ru.rachie.api.bundles.Bundles;
 import ru.rachie.api.events.Events;
+import ru.rachie.api.servernetwork.ClientServer;
+import ru.rachie.api.servernetwork.HubServer;
+import ru.rachie.api.servernetwork.Packets;
+import ru.rachie.api.servernetwork.ServerState;
 import ru.rachie.api.timeouts.Timeouts;
 import ru.rachie.vortex.Vars;
 
@@ -13,10 +17,12 @@ import java.time.temporal.ChronoUnit;
 public class ClientCommands {
     public static void load() {
         register("login", (args, player) -> {
-            /*if (Vars.socket != null && !player.admin) {
-                Vars.socket.sendEvent(new Events.LoginRequestEvent(player.name, player.uuid()));
+            if (ServerState.state != 0  && !player.admin) {
+                Packets.loginPacket.uuid = player.uuid();
+                Packets.loginPacket.name = player.name;
+                ServerState.<ClientServer>as().sendPacket(Packets.loginPacket);
                 Bundles.send(player, "commands.login.wait");
-            } else Bundles.send(player, "commands.login.unavailable");*/
+            } else Bundles.send(player, "commands.login.unavailable");
         });
     }
 
@@ -30,7 +36,6 @@ public class ClientCommands {
                         Bundles.send(player, "commands.timeout", name);
                         return;
                     }
-
                     runner.accept(args, player);
                     Timeouts.setTimeout(player.uuid(), name, Duration.of(30, ChronoUnit.SECONDS));
                 });

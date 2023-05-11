@@ -4,10 +4,11 @@ build
 artifacts
 
 ### mindustry server ###
-config
+/config
 
 ### vortex plugin ###
-vortex.json
+/vortex.json
+/bot.json
 
 ### IntelliJ IDEA ###
 .idea

@@ -4,6 +4,9 @@ import arc.net.Connection;
 import arc.net.NetListener;
 import arc.net.Server;
 import arc.util.Log;
+import arc.util.Reflect;
+
+import java.nio.channels.ServerSocketChannel;
 
 /**
  * Creates and binds the server.
@@ -17,6 +20,8 @@ public class HubServer implements ru.rachie.api.servernetwork.Server {
 
     public HubServer(int port, int wbs, int ibs) {
         try {
+            Packets.load();
+
             server = new Server(wbs, ibs, new PacketSerializer());
             server.addListener(new NetListener() {
                 @Override
@@ -35,7 +40,7 @@ public class HubServer implements ru.rachie.api.servernetwork.Server {
             ServerState.state = 1;
             ServerState.server = this;
 
-            Log.info("Started server @", server);
+            Log.info("Started server @ on @", server, server);
         } catch (Exception e) {
             e.printStackTrace();
         }

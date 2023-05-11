@@ -7,6 +7,7 @@ import arc.util.io.Writes;
 
 public class Packets {
     public static MessagePacket messagePacket = new MessagePacket();
+    public static LoginPacket loginPacket = new LoginPacket();
 
     public static void load() {
 
@@ -51,6 +52,15 @@ public class Packets {
             } else {
                 Log.info(data);
             }
+        }
+    }
+
+    public static class LoginPacket extends Packet {
+        public String name;
+        public String uuid;
+
+        public LoginPacket() {
+            super("PlayerLogin");
         }
     }
 }

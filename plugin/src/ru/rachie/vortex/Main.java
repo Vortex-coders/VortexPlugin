@@ -1,15 +1,20 @@
 package ru.rachie.vortex;
 
 import arc.files.Fi;
+import arc.struct.ObjectMap;
 import arc.util.CommandHandler;
 import arc.util.Log;
 import arc.util.Time;
 import mindustry.mod.Plugin;
 import ru.rachie.api.servernetwork.ClientServer;
 import ru.rachie.api.servernetwork.Packets;
+import ru.rachie.api.servernetwork.ServerState;
 import ru.rachie.vortex.commands.AdminCommands;
 import ru.rachie.vortex.commands.ClientCommands;
-import ru.rachie.vortex.listeners.GameEvents;
+
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.UnknownHostException;
 
 public class Main extends Plugin {
     public ClientServer client;
@@ -18,10 +23,21 @@ public class Main extends Plugin {
         Log.info("Initialising the plug-in...");
         Time.mark();
 
-        Config.load(new Fi("vortex.json"));
-        Config.setGameRules();
+        Vars.config = new Config(new Fi("vortex.json"), ObjectMap.of(
+                "name", "Survival",
+                "description", "A survival server",
+                "port", 6567,
+                "remote", "localhost",
+                "remotePort", 6466));
+        Config.setRules();
 
-        GameEvents.load();
+        Log.info("Connecting to server at @ @", Vars.config.remote, Vars.config.remotePort);
+        new ClientServer();
+        try {
+            ServerState.<ClientServer>as().connect(InetAddress.getByName(Vars.config.remote), Vars.config.remotePort);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
         Log.info("Plug-in initialised in @ ms", Time.elapsed());
     }

@@ -19,6 +19,8 @@ public class ClientServer implements Server{
 
     public ClientServer(int wbs, int ibs) {
         try {
+            Packets.load();
+
             client = new Client(wbs, ibs, new PacketSerializer());
             client.addListener(new NetListener() {
                 @Override
@@ -46,7 +48,7 @@ public class ClientServer implements Server{
         Threads.daemon(() -> {
             try {
                 client.connect(5000, adr, port);
-                Log.info("Client connected.");
+                Log.info("Connected at @ to port @.", adr, port);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -9,8 +9,9 @@ import arc.util.io.ByteBufferOutput;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 
-import java.io.DataOutputStream;
 import java.nio.ByteBuffer;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PacketSerializer implements NetSerializer {
     @Override
@@ -61,12 +62,18 @@ public class PacketSerializer implements NetSerializer {
                 Log.info("Received unknown framework message with id: @", id);
             }
         } else {
-            Packet packet = Packet.packets.get(name);
-            if (packet == null) {
+            AtomicReference<Packet> packet = new AtomicReference<>();
+            Packet.packets.each((s, p) -> {
+                //Log.info("s:@, n:@, s==n:@, p:", s, name, Objects.equals(s, name), p);
+                if (Objects.equals(s, name)) {
+                    packet.set(p);
+                }
+            });
+            if (packet.get() == null) {
                 Log.info("Received unknown packet: @", name);
             } else {
-                packet.read(reads);
-                out = packet;
+                packet.get().read(reads);
+                out = packet.get();
             }
         }
 
