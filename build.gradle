@@ -1,0 +1,54 @@
+plugins {
+    id "java"
+    id "idea"
+}
+
+wrapper {
+    gradleVersion = "8.1.1"
+}
+
+sourceSets.main.java.srcDirs = []
+sourceSets.main.resources.srcDirs = []
+
+subprojects { Project project ->
+    project.plugins.apply("java")
+    project.plugins.apply("idea")
+
+    project.sourceSets.main.java.srcDirs = ["src"]
+    project.sourceSets.main.resources.srcDirs = ["res"]
+
+    project.ext {
+        copyPaths = ["$rootProject.projectDir/artifacts"]
+        mindustryVersion = "v143.1"
+    }
+
+    project.repositories {
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }
+    }
+
+    project.tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        sourceCompatibility = JavaVersion.VERSION_20
+        targetCompatibility = JavaVersion.VERSION_20
+    }
+
+    project.tasks.jar {
+        from {
+            configurations.runtimeClasspath.collect { File file ->
+                file.isDirectory() ? file : zipTree(file)
+            }
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+        doLast {
+            copy {
+                from { archiveFile.get() }
+                (copyPaths as ArrayList<String>).each { p ->
+                    into(p)
+                }
+            }
+        }
+    }
+}
+

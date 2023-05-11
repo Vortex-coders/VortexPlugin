@@ -13,10 +13,10 @@ import java.time.temporal.ChronoUnit;
 public class ClientCommands {
     public static void load() {
         register("login", (args, player) -> {
-            if (Vars.socket != null && !player.admin) {
+            /*if (Vars.socket != null && !player.admin) {
                 Vars.socket.sendEvent(new Events.LoginRequestEvent(player.name, player.uuid()));
                 Bundles.send(player, "commands.login.wait");
-            } else Bundles.send(player, "commands.login.unavailable");
+            } else Bundles.send(player, "commands.login.unavailable");*/
         });
     }
 
