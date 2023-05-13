@@ -5,7 +5,7 @@ dependencies {
     implementation "com.github.Anuken.MindustryJitpack:core:$mindustryVersion"
 }
 
-tasks.withType(Jar) {
+tasks.withType(Jar).configureEach {
     manifest {
         attributes["Main-Class"] = "ru.rachie.bot.Main"
     }

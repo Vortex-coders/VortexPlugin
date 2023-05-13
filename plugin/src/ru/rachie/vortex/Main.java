@@ -13,7 +13,6 @@ import ru.rachie.vortex.commands.AdminCommands;
 import ru.rachie.vortex.commands.ClientCommands;
 
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.UnknownHostException;
 
 public class Main extends Plugin {
@@ -29,10 +28,12 @@ public class Main extends Plugin {
                 "port", 6567,
                 "remote", "localhost",
                 "remotePort", 6466));
+
         Config.setRules();
 
         Log.info("Connecting to server at @ @", Vars.config.remote, Vars.config.remotePort);
         new ClientServer();
+
         try {
             ServerState.<ClientServer>as().connect(InetAddress.getByName(Vars.config.remote), Vars.config.remotePort);
         } catch (UnknownHostException e) {
@@ -46,7 +47,7 @@ public class Main extends Plugin {
     public void registerServerCommands(CommandHandler handler) {
         Vars.server = handler;
 
-        handler.register("message", "<arg1> <arg2>", "sends a message", s -> {
+        handler.register("message", "<arg1> <arg2>", "Sends a message.", s -> {
             Packets.messagePacket.data = s[0];
             Packets.messagePacket.isGlobal = s[1].equals("t");
             client.sendPacket(Packets.messagePacket);
@@ -57,7 +58,7 @@ public class Main extends Plugin {
     public void registerClientCommands(CommandHandler handler) {
         Vars.client = handler;
 
-        handler.register("message", "<arg1> <arg2>",  "sends a message", s -> {
+        handler.register("message", "<arg1> <arg2>", "Sends a message.", s -> {
             Packets.messagePacket.data = s[0];
             Packets.messagePacket.isGlobal = s[1].equals("t");
         });

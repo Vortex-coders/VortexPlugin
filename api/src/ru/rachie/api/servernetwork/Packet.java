@@ -12,15 +12,20 @@ public abstract class Packet {
     public String name;
     public Connection from;
 
-    public Packet(String name ) {
+    public Packet(String name) {
         this.name = name;
         packets.put(this.name, this);
     }
 
-    public void read(Reads read){}
-    public void write(Writes write){}
+    public void read(Reads read) {
+    }
 
-    public void handleClient(){}
+    public void write(Writes write) {
+    }
+
+    public void handleClient() {
+    }
+
     public void handleServer(Connection con) {
         from = con;
     }

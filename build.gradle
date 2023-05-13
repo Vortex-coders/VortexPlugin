@@ -15,7 +15,7 @@ subprojects { Project project ->
     project.plugins.apply("idea")
 
     project.sourceSets.main.java.srcDirs = ["src"]
-    project.sourceSets.main.resources.srcDirs = ["res"]
+    project.sourceSets.main.resources.srcDirs = ["resources"]
 
     project.ext {
         copyPaths = ["$rootProject.projectDir/artifacts"]
@@ -27,7 +27,7 @@ subprojects { Project project ->
         maven { url "https://www.jitpack.io" }
     }
 
-    project.tasks.withType(JavaCompile) {
+    project.tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         sourceCompatibility = JavaVersion.VERSION_20
         targetCompatibility = JavaVersion.VERSION_20

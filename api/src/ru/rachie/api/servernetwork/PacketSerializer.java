@@ -32,7 +32,7 @@ public class PacketSerializer implements NetSerializer {
                 writes.i(2);
             } else {
                 writes.i(-1);
-                Log.info("Unknown framework message type: @" , message.getClass().getSimpleName());
+                Log.info("Unknown framework message type: @", message.getClass().getSimpleName());
             }
         } else {
             Log.err("Убери эту хуйню от меняяя~", new ArcNetException());

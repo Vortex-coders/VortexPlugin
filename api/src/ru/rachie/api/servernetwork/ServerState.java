@@ -17,6 +17,10 @@ public class ServerState {
         return state == 2;
     }
 
+    public static boolean isAvailable() {
+        return state != 0;
+    }
+
     public static <T> T as() {
         return (T) server;
     }

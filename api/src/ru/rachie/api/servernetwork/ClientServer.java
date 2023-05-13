@@ -8,9 +8,10 @@ import arc.util.Threads;
 
 import java.net.InetAddress;
 
-/** Creates client.
+/**
+ * Creates client.
  **/
-public class ClientServer implements Server{
+public class ClientServer implements Server {
     public Client client;
 
     public ClientServer() {

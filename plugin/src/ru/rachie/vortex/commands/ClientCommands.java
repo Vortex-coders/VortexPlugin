@@ -3,9 +3,7 @@ package ru.rachie.vortex.commands;
 import arc.util.CommandHandler.CommandRunner;
 import mindustry.gen.Player;
 import ru.rachie.api.bundles.Bundles;
-import ru.rachie.api.events.Events;
 import ru.rachie.api.servernetwork.ClientServer;
-import ru.rachie.api.servernetwork.HubServer;
 import ru.rachie.api.servernetwork.Packets;
 import ru.rachie.api.servernetwork.ServerState;
 import ru.rachie.api.timeouts.Timeouts;
@@ -17,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 public class ClientCommands {
     public static void load() {
         register("login", (args, player) -> {
-            if (ServerState.state != 0  && !player.admin) {
+            if (ServerState.isAvailable() && !player.admin) {
                 Packets.loginPacket.uuid = player.uuid();
                 Packets.loginPacket.name = player.name;
                 ServerState.<ClientServer>as().sendPacket(Packets.loginPacket);

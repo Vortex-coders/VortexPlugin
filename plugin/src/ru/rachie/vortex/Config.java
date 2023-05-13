@@ -2,9 +2,9 @@ package ru.rachie.vortex;
 
 import arc.files.Fi;
 import arc.struct.ObjectMap;
-import arc.util.Log;
-import mindustry.net.Administration;
 import ru.rachie.api.config.GenericConfig;
+
+import static mindustry.net.Administration.Config.*;
 
 public class Config extends GenericConfig {
     public String name;
@@ -18,25 +18,25 @@ public class Config extends GenericConfig {
     }
 
     public static void setRules() {
-        Administration.Config.autoPause.set(true);
+        autoPause.set(true);
 
-        Administration.Config.serverName.set(Vars.config.name);
-        Administration.Config.desc.set(Vars.config.description);
+        serverName.set(Vars.config.name);
+        desc.set(Vars.config.description);
 
-        Administration.Config.motd.set("off");
-        Administration.Config.showConnectMessages.set(false);
-        Administration.Config.logging.set(true);
-        Administration.Config.strict.set(true);
-        Administration.Config.antiSpam.set(true);
+        motd.set("off");
+        showConnectMessages.set(false);
+        logging.set(true);
+        strict.set(true);
+        antiSpam.set(true);
 
-        Administration.Config.interactRateWindow.set(1);
-        Administration.Config.interactRateLimit.set(15);
-        Administration.Config.messageRateLimit.set(1);
-        Administration.Config.packetSpamLimit.set(250);
+        interactRateWindow.set(1);
+        interactRateLimit.set(15);
+        messageRateLimit.set(1);
+        packetSpamLimit.set(250);
 
-        Administration.Config.interactRateKick.set(15);
-        Administration.Config.messageSpamKick.set(5);
+        interactRateKick.set(15);
+        messageSpamKick.set(5);
 
-        Administration.Config.snapshotInterval.set(250);
+        snapshotInterval.set(250);
     }
 }

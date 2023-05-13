@@ -4,9 +4,6 @@ import arc.net.Connection;
 import arc.net.NetListener;
 import arc.net.Server;
 import arc.util.Log;
-import arc.util.Reflect;
-
-import java.nio.channels.ServerSocketChannel;
 
 /**
  * Creates and binds the server.
